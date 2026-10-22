@@ -1,3 +1,5 @@
+# CPU-only PyTorch (the default Linux wheel pulls in several GB of CUDA libraries)
+--extra-index-url https://download.pytorch.org/whl/cpu
 pennylane>=0.38
 torch>=2.2
 scikit-learn>=1.4
@@ -6,4 +8,3 @@ pandas>=2.1
 pyyaml>=6.0
 streamlit>=1.35
 plotly>=5.20
-pytest>=8.0
