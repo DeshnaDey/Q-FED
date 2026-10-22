@@ -1,0 +1,9 @@
+name: exp4_quantum_vs_classical
+title: "4 · Quantum vs classical"
+question: How does the VQC compare with classical classifiers?
+variants:
+  - {name: vqc_fedavg,    label: "VQC · FedAvg",                 runner: federated}
+  - {name: logreg_fedavg, label: "Logistic regression · FedAvg", runner: federated, overrides: {model: {type: logreg}}}
+  - {name: vqc_central,   label: "VQC · centralized",            runner: centralized}
+  - {name: sklearn_lr,    label: "Logistic regression · centralized", runner: sklearn_lr}
+  - {name: sklearn_svm,   label: "SVM (RBF) · centralized",      runner: sklearn_svm}

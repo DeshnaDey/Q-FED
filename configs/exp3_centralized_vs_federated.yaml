@@ -1,0 +1,7 @@
+name: exp3_centralized_vs_federated
+title: "3 · Centralized vs federated"
+question: What does distributed training cost in accuracy?
+variants:
+  - {name: centralized,     label: "Centralized VQC",          runner: centralized}
+  - {name: fedavg_iid,      label: "FedAvg VQC (IID)",         runner: federated}
+  - {name: fedavg_noniid,   label: "FedAvg VQC (non-IID α=0.5)", runner: federated, overrides: {data: {partition: dirichlet, alpha: 0.5}}}

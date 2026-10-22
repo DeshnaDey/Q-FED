@@ -1,0 +1,12 @@
+name: exp5_noise_sensitivity
+title: "5 · Noise sensitivity"
+question: How much does noise hurt accuracy and stability?
+# Noisy simulation is slower, so this experiment uses fewer rounds.
+overrides: {train: {rounds: 10}}
+variants:
+  - {name: ideal,       label: "Ideal",                 runner: federated}
+  - {name: shots_1000,  label: "Shot noise (1000)",     runner: federated, overrides: {noise: {mode: shots, shots: 1000}}}
+  - {name: shots_100,   label: "Shot noise (100)",      runner: federated, overrides: {noise: {mode: shots, shots: 100}}}
+  - {name: depol_0.01,  label: "Gate error p=0.01",     runner: federated, overrides: {noise: {mode: depolarizing, p: 0.01}}}
+  - {name: depol_0.05,  label: "Gate error p=0.05",     runner: federated, overrides: {noise: {mode: depolarizing, p: 0.05}}}
+  - {name: readout_0.05, label: "Readout error p=0.05", runner: federated, overrides: {noise: {mode: readout, p: 0.05}}}

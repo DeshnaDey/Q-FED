@@ -1,0 +1,281 @@
+{
+  "experiment": "exp5_noise_sensitivity",
+  "experiment_title": "5 \u00b7 Noise sensitivity",
+  "question": "How much does noise hurt accuracy and stability?",
+  "variant": "depol_0.01",
+  "label": "Gate error p=0.01",
+  "runner": "federated",
+  "order": 3,
+  "seed": 0,
+  "config": {
+    "seed": 42,
+    "data": {
+      "test_size": 0.2,
+      "n_components": 4,
+      "n_clients": 3,
+      "partition": "iid",
+      "alpha": 0.5,
+      "min_client_size": 10
+    },
+    "model": {
+      "type": "vqc",
+      "n_qubits": 4,
+      "n_layers": 2
+    },
+    "noise": {
+      "mode": "depolarizing",
+      "shots": 1000,
+      "p": 0.01
+    },
+    "train": {
+      "rounds": 10,
+      "local_epochs": 2,
+      "batch_size": 16,
+      "lr": 0.05,
+      "client_fraction": 1.0
+    }
+  },
+  "history": [
+    {
+      "round": 1,
+      "train_loss": 0.42318141453541247,
+      "test_accuracy": 0.8859649122807017,
+      "test_precision": 1.0,
+      "test_recall": 0.6904761904761905,
+      "test_f1": 0.8169014084507042,
+      "test_roc_auc": 0.9861111111111112,
+      "test_loss": 0.40041887760162354,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 240,
+      "elapsed_s": 4.714018499944359
+    },
+    {
+      "round": 2,
+      "train_loss": 0.36532128415264925,
+      "test_accuracy": 0.8947368421052632,
+      "test_precision": 1.0,
+      "test_recall": 0.7142857142857143,
+      "test_f1": 0.8333333333333334,
+      "test_roc_auc": 0.9900793650793651,
+      "test_loss": 0.3441598415374756,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 480,
+      "elapsed_s": 7.61154870793689
+    },
+    {
+      "round": 3,
+      "train_loss": 0.3136619738988824,
+      "test_accuracy": 0.9122807017543859,
+      "test_precision": 1.0,
+      "test_recall": 0.7619047619047619,
+      "test_f1": 0.8648648648648649,
+      "test_roc_auc": 0.9890873015873016,
+      "test_loss": 0.3011769652366638,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 720,
+      "elapsed_s": 9.8935532909818
+    },
+    {
+      "round": 4,
+      "train_loss": 0.28776560198147216,
+      "test_accuracy": 0.9210526315789473,
+      "test_precision": 1.0,
+      "test_recall": 0.7857142857142857,
+      "test_f1": 0.88,
+      "test_roc_auc": 0.9927248677248677,
+      "test_loss": 0.26771417260169983,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 960,
+      "elapsed_s": 11.965268165920861
+    },
+    {
+      "round": 5,
+      "train_loss": 0.2515608785178635,
+      "test_accuracy": 0.9210526315789473,
+      "test_precision": 0.9714285714285714,
+      "test_recall": 0.8095238095238095,
+      "test_f1": 0.8831168831168831,
+      "test_roc_auc": 0.9927248677248677,
+      "test_loss": 0.23634789884090424,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 1200,
+      "elapsed_s": 13.919064874993637
+    },
+    {
+      "round": 6,
+      "train_loss": 0.2290935623383784,
+      "test_accuracy": 0.9298245614035088,
+      "test_precision": 0.9722222222222222,
+      "test_recall": 0.8333333333333334,
+      "test_f1": 0.8974358974358975,
+      "test_roc_auc": 0.9933862433862434,
+      "test_loss": 0.21385885775089264,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 1440,
+      "elapsed_s": 15.810997499967925
+    },
+    {
+      "round": 7,
+      "train_loss": 0.20639608879665755,
+      "test_accuracy": 0.9298245614035088,
+      "test_precision": 0.9722222222222222,
+      "test_recall": 0.8333333333333334,
+      "test_f1": 0.8974358974358975,
+      "test_roc_auc": 0.9937169312169312,
+      "test_loss": 0.19677118957042694,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 1680,
+      "elapsed_s": 17.747717165970244
+    },
+    {
+      "round": 8,
+      "train_loss": 0.1935591458259048,
+      "test_accuracy": 0.9298245614035088,
+      "test_precision": 0.9722222222222222,
+      "test_recall": 0.8333333333333334,
+      "test_f1": 0.8974358974358975,
+      "test_roc_auc": 0.9943783068783069,
+      "test_loss": 0.18434305489063263,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 1920,
+      "elapsed_s": 19.701728832907975
+    },
+    {
+      "round": 9,
+      "train_loss": 0.1870131379234922,
+      "test_accuracy": 0.9473684210526315,
+      "test_precision": 0.9736842105263158,
+      "test_recall": 0.8809523809523809,
+      "test_f1": 0.925,
+      "test_roc_auc": 0.994378306878307,
+      "test_loss": 0.17044326663017273,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 2160,
+      "elapsed_s": 21.98791279096622
+    },
+    {
+      "round": 10,
+      "train_loss": 0.18501052606236804,
+      "test_accuracy": 0.9473684210526315,
+      "test_precision": 0.9736842105263158,
+      "test_recall": 0.8809523809523809,
+      "test_f1": 0.925,
+      "test_roc_auc": 0.994378306878307,
+      "test_loss": 0.16029328107833862,
+      "clients": [
+        "A",
+        "B",
+        "C"
+      ],
+      "comm_bytes": 240,
+      "cum_comm_bytes": 2400,
+      "elapsed_s": 23.892563749919645
+    }
+  ],
+  "final": {
+    "accuracy": 0.9473684210526315,
+    "precision": 0.9736842105263158,
+    "recall": 0.8809523809523809,
+    "f1": 0.925,
+    "roc_auc": 0.994378306878307,
+    "loss": 0.16029328107833862
+  },
+  "per_client": {
+    "A": {
+      "accuracy": 0.9473684210526315,
+      "precision": 0.95,
+      "recall": 0.9047619047619048,
+      "f1": 0.926829268292683,
+      "roc_auc": 0.994047619047619,
+      "loss": 0.16642390191555023
+    },
+    "B": {
+      "accuracy": 0.9385964912280702,
+      "precision": 0.9487179487179487,
+      "recall": 0.8809523809523809,
+      "f1": 0.9135802469135802,
+      "roc_auc": 0.994378306878307,
+      "loss": 0.16007548570632935
+    },
+    "C": {
+      "accuracy": 0.9298245614035088,
+      "precision": 0.9722222222222222,
+      "recall": 0.8333333333333334,
+      "f1": 0.8974358974358975,
+      "roc_auc": 0.9937169312169312,
+      "loss": 0.16597573459148407
+    }
+  },
+  "n_params": 10,
+  "samples_seen": 9100,
+  "train_time_s": 24.186992540955544,
+  "client_counts": [
+    {
+      "client": "A",
+      "benign": 95,
+      "malignant": 57
+    },
+    {
+      "client": "B",
+      "benign": 95,
+      "malignant": 57
+    },
+    {
+      "client": "C",
+      "benign": 95,
+      "malignant": 56
+    }
+  ],
+  "circuit": {
+    "qubits": 4,
+    "depth": 11,
+    "quantum_params": 8,
+    "shots": 0,
+    "est_circuit_evals": 154700
+  }
+}

@@ -1,0 +1,8 @@
+name: exp6_communication_rounds
+title: "6 · Communication rounds"
+question: When does it converge, and at what communication cost?
+overrides: {train: {rounds: 40}}
+variants:
+  - {name: all_clients,  label: "3 of 3 clients per round", runner: federated}
+  - {name: two_clients,  label: "2 of 3 clients per round", runner: federated, overrides: {train: {client_fraction: 0.67}}}
+  - {name: one_epoch,    label: "3 of 3 · 1 local epoch",   runner: federated, overrides: {train: {local_epochs: 1}}}

@@ -1,0 +1,74 @@
+{
+  "experiment": "exp4_quantum_vs_classical",
+  "experiment_title": "4 \u00b7 Quantum vs classical",
+  "question": "How does the VQC compare with classical classifiers?",
+  "variant": "sklearn_lr",
+  "label": "Logistic regression \u00b7 centralized",
+  "runner": "sklearn_lr",
+  "order": 3,
+  "seed": 0,
+  "config": {
+    "seed": 42,
+    "data": {
+      "test_size": 0.2,
+      "n_components": 4,
+      "n_clients": 3,
+      "partition": "iid",
+      "alpha": 0.5,
+      "min_client_size": 10
+    },
+    "model": {
+      "type": "vqc",
+      "n_qubits": 4,
+      "n_layers": 2
+    },
+    "noise": {
+      "mode": "ideal",
+      "shots": 1000,
+      "p": 0.01
+    },
+    "train": {
+      "rounds": 20,
+      "local_epochs": 2,
+      "batch_size": 16,
+      "lr": 0.05,
+      "client_fraction": 1.0
+    }
+  },
+  "history": [],
+  "final": {
+    "accuracy": 0.9649122807017544,
+    "precision": 1.0,
+    "recall": 0.9047619047619048,
+    "f1": 0.95,
+    "roc_auc": 0.9970238095238095
+  },
+  "per_client": {},
+  "n_params": 0,
+  "samples_seen": 455,
+  "train_time_s": 0.036476500099524856,
+  "client_counts": [
+    {
+      "client": "A",
+      "benign": 95,
+      "malignant": 57
+    },
+    {
+      "client": "B",
+      "benign": 95,
+      "malignant": 57
+    },
+    {
+      "client": "C",
+      "benign": 95,
+      "malignant": 56
+    }
+  ],
+  "circuit": {
+    "qubits": 0,
+    "depth": 0,
+    "quantum_params": 0,
+    "shots": 0,
+    "est_circuit_evals": 0
+  }
+}

@@ -1,0 +1,8 @@
+name: exp1_local_vs_federated
+title: "1 · Local vs federated"
+question: Does collaboration help?
+variants:
+  - {name: fedavg_iid,      label: "FedAvg (IID)",            runner: federated}
+  - {name: local_iid,       label: "Local only (IID)",        runner: local_only}
+  - {name: fedavg_noniid,   label: "FedAvg (non-IID α=0.5)",  runner: federated,  overrides: {data: {partition: dirichlet, alpha: 0.5}}}
+  - {name: local_noniid,    label: "Local only (non-IID α=0.5)", runner: local_only, overrides: {data: {partition: dirichlet, alpha: 0.5}}}

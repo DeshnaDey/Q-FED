@@ -1,0 +1,27 @@
+# Shared defaults. Experiment files in this folder override any of these keys.
+seed: 42
+
+data:
+  test_size: 0.2          # held-out test set, shared by every experiment
+  n_components: 4         # PCA 30 -> 4 features, one per qubit
+  n_clients: 3
+  partition: iid          # iid | dirichlet | feature_skew
+  alpha: 0.5              # Dirichlet concentration (smaller = more skewed)
+  min_client_size: 10
+
+model:
+  type: vqc               # vqc | logreg (classical FL baseline)
+  n_qubits: 4
+  n_layers: 2
+
+noise:
+  mode: ideal             # ideal | shots | depolarizing | readout
+  shots: 1000             # used when mode = shots
+  p: 0.01                 # error probability for depolarizing / readout
+
+train:
+  rounds: 20              # communication rounds
+  local_epochs: 2
+  batch_size: 16
+  lr: 0.05
+  client_fraction: 1.0    # share of clients sampled each round

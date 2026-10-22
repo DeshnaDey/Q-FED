@@ -1,0 +1,9 @@
+name: exp2_iid_vs_noniid
+title: "2 · IID vs non-IID"
+question: How does heterogeneity affect convergence and accuracy?
+variants:
+  - {name: iid,          label: "IID",                 runner: federated}
+  - {name: dir_1.0,      label: "Dirichlet α=1.0",     runner: federated, overrides: {data: {partition: dirichlet, alpha: 1.0}}}
+  - {name: dir_0.5,      label: "Dirichlet α=0.5",     runner: federated, overrides: {data: {partition: dirichlet, alpha: 0.5}}}
+  - {name: dir_0.1,      label: "Dirichlet α=0.1",     runner: federated, overrides: {data: {partition: dirichlet, alpha: 0.1}}}
+  - {name: feature_skew, label: "Feature skew (PC1)",  runner: federated, overrides: {data: {partition: feature_skew}}}
