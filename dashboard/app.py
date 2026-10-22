@@ -10,23 +10,35 @@ System      architecture, training round and scope of the claims
 from __future__ import annotations
 
 import sys
+import time
 from pathlib import Path
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-import pennylane as qml  # noqa: E402
-import plotly.graph_objects as go  # noqa: E402
 import streamlit as st  # noqa: E402
 
-from qfed.config import deep_merge, load_base  # noqa: E402
-from qfed.data import class_counts, load_data, make_clients  # noqa: E402
-from qfed.models import build_qnode, circuit_info  # noqa: E402
-from qfed.results import history_frame, load_runs, summary_table  # noqa: E402
-from qfed.runners import run  # noqa: E402
-
 st.set_page_config(page_title="Q-FED", page_icon="⚛", layout="wide")
+
+import numpy as np  # noqa: E402
+import pandas as pd  # noqa: E402
+import plotly.graph_objects as go  # noqa: E402
+
+from qfed.config import deep_merge, load_base  # noqa: E402
+from qfed.results import history_frame, load_runs, summary_table  # noqa: E402
+
+
+@st.cache_resource(show_spinner=False)
+def quantum_stack() -> SimpleNamespace:
+    """Import torch and PennyLane on first use: they are slow to load on a cold server,
+    and only the live demo needs them."""
+    t0 = time.perf_counter()
+    import pennylane as qml
+
+    from qfed.models import build_qnode, circuit_info
+    from qfed.runners import run
+    print(f"[qfed] loaded torch + PennyLane in {time.perf_counter() - t0:.1f}s", flush=True)
+    return SimpleNamespace(qml=qml, build_qnode=build_qnode, circuit_info=circuit_info, run=run)
 
 # ---------------------------------------------------------------- chart styling
 # Categorical slots in fixed order; a variant keeps its slot across every chart.
@@ -99,6 +111,8 @@ def page_demo() -> None:
         overrides["noise"]["mode"] = "ideal"
     cfg = deep_merge(load_base(), overrides)
 
+    from qfed.data import class_counts, load_data, make_clients  # scikit-learn only, quick to import
+
     ds = load_data(cfg["data"]["test_size"], cfg["data"]["n_components"], seed=cfg["seed"])
     clients = make_clients(ds, cfg["data"], seed=int(seed))
     counts = pd.DataFrame(class_counts(clients))
@@ -117,11 +131,13 @@ def page_demo() -> None:
     with right:
         st.markdown("**Training set** · 455 records · 4 PCA features scaled to [0, π]  \n"
                     "**Test set** · 114 held-out records, shared by every run")
+        with st.spinner("Loading the quantum simulator (the first load on a cold server can take a minute)…"):
+            q = quantum_stack()
         if cfg["model"]["type"] == "vqc":
-            info = circuit_info(cfg)
+            info = q.circuit_info(cfg)
             # Draw the noiseless circuit; the active noise is described in the caption instead.
-            qnode = build_qnode(4, cfg["model"]["n_layers"], {"mode": "ideal"})
-            drawing = qml.draw(qnode, decimals=None, show_matrices=False, level="device", max_length=100)(
+            qnode = q.build_qnode(4, cfg["model"]["n_layers"], {"mode": "ideal"})
+            drawing = q.qml.draw(qnode, decimals=None, show_matrices=False, level="device", max_length=100)(
                 np.zeros(4), np.zeros((cfg["model"]["n_layers"], 4)))
             st.code(drawing, language=None)
             mode = cfg["noise"]["mode"]
@@ -164,7 +180,7 @@ def page_demo() -> None:
                                key=f"loss{rec['round']}")
 
     with st.spinner("Training…"):
-        result = run(cfg, "federated", seed=int(seed), on_round=on_round)
+        result = q.run(cfg, "federated", seed=int(seed), on_round=on_round)
     progress.progress(1.0, text="Done")
 
     f = result["final"]
